@@ -68,21 +68,22 @@
   });
 
   async function select() {
-    const result = results[selectedIndex];
-    const selectedValue = extract(result.original);
-    const searchedValue = value;
+    if(selectedIndex > -1 && results[selectedIndex]){
+      const result = results[selectedIndex];
+      const selectedValue = extract(result.original);
+      const searchedValue = value;
 
-    if (inputAfterSelect == "clear") value = "";
-    if (inputAfterSelect == "update") value = selectedValue;
+      if (inputAfterSelect == "clear") value = "";
+      if (inputAfterSelect == "update") value = selectedValue;
 
-    dispatch("select", {
-      selectedIndex,
-      searched: searchedValue,
-      selected: selectedValue,
-      original: result.original,
-      originalIndex: result.index,
-    });
-
+      dispatch("select", {
+        selectedIndex,
+        searched: searchedValue,
+        selected: selectedValue,
+        original: result.original,
+        originalIndex: result.index,
+      });
+    }
     await tick();
 
     if (focusAfterSelect) searchRef.focus();
